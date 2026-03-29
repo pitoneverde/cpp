@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 19:12:09 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/29 22:57:40 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 01:29:53 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ public:
 	ClapTrap& operator=(ClapTrap const& src);
 
 	// getters
-	std::string& getName();
-	unsigned int& getHitPoints();
-	unsigned int& getEnergyPoints();
-	unsigned int& getAttackDamage();
+	std::string getName() const;
+	unsigned int getHitPoints() const;
+	unsigned int getEnergyPoints() const;
+	unsigned int getAttackDamage() const;
 	void setName(std::string const& value);
 	void setHitPoints(unsigned int const& value);
 	void setEnergyPoints(unsigned int const& value);

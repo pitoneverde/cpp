@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 19:12:12 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/29 22:58:51 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 01:29:43 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ ClapTrap& ClapTrap::operator=(ClapTrap const& src) {
 	return *this;
 }
 
-std::string& ClapTrap::getName() { return _name; }
-unsigned int& ClapTrap::getHitPoints() { return _hitPoints; }
-unsigned int& ClapTrap::getEnergyPoints() { return _energyPoints; }
-unsigned int& ClapTrap::getAttackDamage() { return _attackDamage; }
+std::string ClapTrap::getName() const { return _name; }
+unsigned int ClapTrap::getHitPoints() const { return _hitPoints; }
+unsigned int ClapTrap::getEnergyPoints() const { return _energyPoints; }
+unsigned int ClapTrap::getAttackDamage() const { return _attackDamage; }
 void ClapTrap::setName(std::string const& value) { _name = value; }
 void ClapTrap::setHitPoints(unsigned int const& value) { _hitPoints = value; }
 void ClapTrap::setEnergyPoints(unsigned int const& value) { _energyPoints = value; }

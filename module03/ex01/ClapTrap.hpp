@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 19:12:09 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/29 22:43:23 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/29 22:41:06 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ private:
 	unsigned int _hitPoints;
 	unsigned int _energyPoints;
 	unsigned int _attackDamage;
-	ClapTrap();	//private constructor to keep canonical form
+
+protected:
+	ClapTrap();	//protected constructor to keep canonical form
 
 public:
 	ClapTrap(std::string name);
@@ -33,16 +35,18 @@ public:
 	ClapTrap& operator=(ClapTrap const& src);
 
 	// getters
+	std::string& getName();
 	unsigned int& getHitPoints();
 	unsigned int& getEnergyPoints();
 	unsigned int& getAttackDamage();
+	void setName(std::string const& value);
 	void setHitPoints(unsigned int const& value);
 	void setEnergyPoints(unsigned int const& value);
 	void setAttackDamage(unsigned int const& value);
 
-	void attack(const std::string& target);
-	void takeDamage(unsigned int amount);
-	void beRepaired(unsigned int amount);
+	virtual void attack(const std::string& target);
+	virtual void takeDamage(unsigned int amount);
+	virtual void beRepaired(unsigned int amount);
 
 	~ClapTrap();
 };

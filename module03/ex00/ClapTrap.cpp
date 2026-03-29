@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 19:12:12 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/29 22:43:29 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/29 22:58:51 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ ClapTrap::ClapTrap() {
 }
 
 ClapTrap::ClapTrap(std::string name)
-	: _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(10) {
+	: _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
 		std::cout << "String ctor called" << std::endl;
 	}
 
@@ -34,9 +34,11 @@ ClapTrap& ClapTrap::operator=(ClapTrap const& src) {
 	return *this;
 }
 
+std::string& ClapTrap::getName() { return _name; }
 unsigned int& ClapTrap::getHitPoints() { return _hitPoints; }
 unsigned int& ClapTrap::getEnergyPoints() { return _energyPoints; }
 unsigned int& ClapTrap::getAttackDamage() { return _attackDamage; }
+void ClapTrap::setName(std::string const& value) { _name = value; }
 void ClapTrap::setHitPoints(unsigned int const& value) { _hitPoints = value; }
 void ClapTrap::setEnergyPoints(unsigned int const& value) { _energyPoints = value; }
 void ClapTrap::setAttackDamage(unsigned int const& value) { _attackDamage = value; }

@@ -4,7 +4,7 @@ CXX			= g++
 CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98
 NAME		= replace
 
-# SRCS		= main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+SRCS		= main.cpp #replace.cpp
 OBJS		= $(SRCS:.cpp=.o)
 DEPENDS		= $(OBJS:.o=.d)
 

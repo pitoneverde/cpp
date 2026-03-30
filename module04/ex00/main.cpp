@@ -6,13 +6,15 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:32:37 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 01:39:57 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 03:16:47 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
 
 int main()
 {
@@ -27,5 +29,15 @@ int main()
 	delete meta;
 	delete j;
 	delete i;
+
+	const WrongAnimal* wmeta = new WrongAnimal();
+	const WrongAnimal* wi = new WrongCat();
+	std::cout << wmeta->getType() << " " << std::endl;
+	std::cout << wi->getType() << " " << std::endl;
+	wi->makeSound(); //will output the animal sound!
+	// wmeta->makeSound(); // segfaults because of static linking
+	delete wmeta;
+	delete wi;
+
 	return 0;
 }

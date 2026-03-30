@@ -1,10 +1,8 @@
-# NOTE: need monday to push what i forgot on 42 pc
-
 CXX			= g++
 CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98
-NAME		= replace
+NAME		= traps
 
-SRCS		= main.cpp #replace.cpp
+SRCS		= main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJS		= $(SRCS:.cpp=.o)
 DEPENDS		= $(OBJS:.o=.d)
 

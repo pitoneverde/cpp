@@ -1,10 +1,8 @@
-# NOTE: need monday to push what i forgot on 42 pc
-
 CXX			= g++
 CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98
-NAME		= replace
+NAME		= fixed
 
-SRCS		= main.cpp #replace.cpp
+SRCS		= main.cpp Fixed.cpp
 OBJS		= $(SRCS:.cpp=.o)
 DEPENDS		= $(OBJS:.o=.d)
 

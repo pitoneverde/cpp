@@ -6,12 +6,12 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 00:51:12 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 02:00:52 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:21:01 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __WRONGANIMAL_HPP
-#define __WRONGANIMAL_HPP 1
+#ifndef WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP 1
 
 #include <string>
 #include <iostream>

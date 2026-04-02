@@ -1,8 +1,8 @@
 CXX			= g++
-CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98 -g
 NAME		= animals
 
-SRCS		= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+SRCS		= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 OBJS		= $(SRCS:.cpp=.o)
 DEPENDS		= $(OBJS:.o=.d)
 

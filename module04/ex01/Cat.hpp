@@ -6,25 +6,31 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 00:51:33 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 01:36:36 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:20:51 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __CAT_HPP
-#define __CAT_HPP 1
+#ifndef CAT_HPP
+#define CAT_HPP 1
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
 class Cat : public Animal
 {
+private:
+	Brain* brain;
 public:
 	Cat();
 	Cat(std::string type);
 	Cat(Cat const& src);
 
 	Cat& operator=(Cat const& src);
+
+	void setIdeaAt(size_t index, std::string idea);
+	std::string getIdeaAt(size_t index) const;
 
 	virtual void makeSound() const;
 

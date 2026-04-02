@@ -6,11 +6,11 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:32:37 by sabruma           #+#    #+#             */
-/*   Updated: 2026/04/02 19:30:44 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:34:12 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
@@ -18,17 +18,17 @@
 
 int main()
 {
-	std::cout << std::endl << "Creating Animal* array" << std::endl;
-	Animal* animals[4];
+	std::cout << std::endl << "Creating AAnimal* array" << std::endl;
+	AAnimal* animals[4];
 	for (size_t i = 0; i < 4; i++)
 	{
 		(i & 1) == 0 ? animals[i] = new Cat() : animals[i] = new Dog();
 	}
 
 	std::cout << std::endl << "Test 1: regular constructions" << std::endl; 
-	// const Animal* meta = new Animal();	//can't instantiate
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	// const AAnimal* meta = new AAnimal();	//can't instantiate
+	const AAnimal* j = new Dog();
+	const AAnimal* i = new Cat();
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	i->makeSound(); //will output the cat sound!

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,31 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-Animal::Animal() {
-	std::cout << "(Animal) Default ctor called" << std::endl;
+AAnimal::AAnimal() {
+	std::cout << "(AAnimal) Default ctor called" << std::endl;
 }
-Animal::Animal(std::string type) : type(type) {
-	std::cout << "(Animal) String ctor called" << std::endl;
+AAnimal::AAnimal(std::string type) : type(type) {
+	std::cout << "(AAnimal) String ctor called" << std::endl;
 }
-Animal::Animal(Animal const& src) {
-	std::cout << "(Animal) Copy ctor called" << std::endl;
+AAnimal::AAnimal(AAnimal const& src) {
+	std::cout << "(AAnimal) Copy ctor called" << std::endl;
 	*this = src;
 }
 
-Animal& Animal::operator=(Animal const& src) {
+AAnimal& AAnimal::operator=(AAnimal const& src) {
 	type = src.type;
 	return *this;
 }
 
-void Animal::makeSound() const {
-	std::cout << "Animal makes sound" << std::endl;
+void AAnimal::makeSound() const {
+	std::cout << "AAnimal makes sound" << std::endl;
 }
 
-std::string Animal::getType() const { return type; }
-void Animal::setType(std::string const& value) { type = value; }
+std::string AAnimal::getType() const { return type; }
+void AAnimal::setType(std::string const& value) { type = value; }
 
-Animal::~Animal() {
-	std::cout << "(Animal) Default dctor called" << std::endl;
+AAnimal::~AAnimal() {
+	std::cout << "(AAnimal) Default dctor called" << std::endl;
 }

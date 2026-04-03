@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   AAnimal.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/02 18:01:29 by sabruma           #+#    #+#             */
-/*   Updated: 2026/04/02 19:20:44 by sabruma          ###   ########.fr       */
+/*   Created: 2026/03/30 00:51:12 by sabruma           #+#    #+#             */
+/*   Updated: 2026/04/02 19:33:48 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-#define BRAIN_HPP 1
+#ifndef __ANIMAL_HPP
+#define __ANIMAL_HPP 1
 
 #include <string>
 #include <iostream>
 
-class Brain
+class AAnimal
 {
-private:
-	std::string ideas[100];
+protected:
+	std::string type;
 public:
-	Brain();
-	Brain(Brain const& src);
-	
-	Brain& operator=(Brain const& src);
+	AAnimal();
+	AAnimal(std::string type);
+	AAnimal(AAnimal const& src);
 
-	void setIdeaAt(size_t index, std::string const& idea);
-	std::string getIdeaAt(size_t index) const;
+	AAnimal& operator=(AAnimal const& src);
 
-	~Brain();
+	std::string getType() const;
+	void setType(std::string const& value);
+
+	virtual void makeSound() const = 0;
+
+	// Apparently if i have to delete through base pointers 
+	// i should define dctor as virtual
+	virtual ~AAnimal();
 };
 
 #endif

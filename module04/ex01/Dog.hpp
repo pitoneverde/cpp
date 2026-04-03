@@ -6,25 +6,32 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 00:51:38 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 01:36:55 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:20:56 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __DOG_HPP
-#define __DOG_HPP 1
+#ifndef DOG_HPP
+#define DOG_HPP 1
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
 class Dog : public Animal
 {
+private:
+	Brain* brain;
+
 public:
 	Dog();
 	Dog(std::string type);
 	Dog(Dog const& src);
 
 	Dog& operator=(Dog const& src);
+
+	void setIdeaAt(size_t index, std::string idea);
+	std::string getIdeaAt(size_t index) const;
 
 	virtual void makeSound() const;
 

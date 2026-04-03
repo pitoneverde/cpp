@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 17:30:02 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/27 18:04:30 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/04/03 16:21:55 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int main(int argc, char const *argv[])
 			return 1;
 		}
 		std::string s;
-		while (!ifs.eof()) {
-			ifs >> s;	// deletes whitespace
+		while (std::getline(ifs, s)) {
 			file.append(s);
 		}
 	}	// call ifs' destructor

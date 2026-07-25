@@ -1,5 +1,5 @@
 #include "Form.hpp"
-#include "Bureaucrat.hpp"  // Full definition needed to call getGrade()
+#include "Bureaucrat.hpp"
 
 static const int HIGHEST_GRADE = 1;
 static const int LOWEST_GRADE = 150;

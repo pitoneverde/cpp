@@ -1,8 +1,9 @@
 CXX			= g++
 CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98
-NAME		= animals
+NAME		= bureaucracy
 
-SRCS		= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+SRCS		= main.cpp Bureaucrat.cpp AForm.cpp \
+ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 OBJS		= $(SRCS:.cpp=.o)
 DEPENDS		= $(OBJS:.o=.d)
 
@@ -22,6 +23,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f *_shrubbery
 
 re: fclean all
 

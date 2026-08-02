@@ -2,7 +2,7 @@ CXX			= g++
 CXXFLAGS	= -Wall -Wextra -Werror -O3 -std=c++98
 NAME		= casts
 
-SRCS		= main.cpp ScalarConverter.cpp
+SRCS		= main.cpp ScalarConverter.cpp ScalarConverterPrint.cpp
 OBJS		= $(SRCS:.cpp=.o)
 DEPENDS		= $(OBJS:.o=.d)
 

@@ -130,7 +130,7 @@ double ScalarConverter::salvageToDouble(const std::string& literal, ScalarConver
 		char* end;
 		std::string num = literal.substr(0, literal.length() - 1);
 		const char* str = num.c_str();
-		double d = strtod(str, &end);
+		double d = std::strtod(str, &end);
 		if (end == str || *end != '\0')
 			throw std::invalid_argument("bad float salvage");
 		return d;

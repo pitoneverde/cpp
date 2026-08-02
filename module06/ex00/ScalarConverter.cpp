@@ -72,22 +72,16 @@ char ScalarConverter::parseChar(const std::string& literal) {
 }
 
 int ScalarConverter::parseInt(const std::string& literal) {
-	try {
-		char* end;
-		const char* str = literal.c_str();
-		long value = std::strtol(str, &end, 10);
-		if (end == str)
-			throw std::invalid_argument("no conversion");
-		if (*end !='\0')
-			throw std::invalid_argument("trailing chars");
-		if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max())
-			throw std::out_of_range("overflow");	
-		return static_cast<int>(value);
-	}
-	catch(const std::exception& e) {
-		std::cerr << e.what() << '\n';
-		return 0;
-	}
+	char* end;
+	const char* str = literal.c_str();
+	long value = std::strtol(str, &end, 10);
+	if (end == str)
+		throw std::invalid_argument("no conversion");
+	if (*end !='\0')
+		throw std::invalid_argument("trailing chars");
+	if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max())
+		throw std::out_of_range("overflow");	
+	return static_cast<int>(value);
 }
 
 float ScalarConverter::parseFloat(const std::string& literal) {
@@ -97,24 +91,19 @@ float ScalarConverter::parseFloat(const std::string& literal) {
 		return std::numeric_limits<float>::infinity();
 	if (literal == "nanf")
 		return std::numeric_limits<float>::quiet_NaN();
-	try {
-		// strip trailing 'f'
-		std::string num = literal.substr(0, literal.length() -1);
+	// strip trailing 'f'
+	std::string num = literal.substr(0, literal.length() -1);
+
+	char* end;
+	const char* str = num.c_str();
+	float f = std::strtof(str, &end);
 	
-		char* end;
-		const char* str = num.c_str();
-		float f = std::strtof(str, &end);
-		
-		if (end == str)
-			throw std::invalid_argument("no conversion");
-		if (*end != '\0')
-			throw std::invalid_argument("trailing chars");
-		
-		return f;
-	} catch (std::exception& e) {
-		std::cerr << e.what() << '\n';
-		return .0f;
-	}
+	if (end == str)
+		throw std::invalid_argument("no conversion");
+	if (*end != '\0')
+		throw std::invalid_argument("trailing chars");
+	
+	return f;
 }
 
 double ScalarConverter::parseDouble(const std::string& literal) {
@@ -124,21 +113,16 @@ double ScalarConverter::parseDouble(const std::string& literal) {
 		return std::numeric_limits<double>::infinity();
 	if (literal == "nan")
 		return std::numeric_limits<double>::quiet_NaN();
-	try {
-		char* end;
-		const char* str = literal.c_str();
-		double d = std::strtod(str, &end);
-		
-		if (end == str)
-			throw std::invalid_argument("no conversion");
-		if (*end != '\0')
-			throw std::invalid_argument("trailing chars");
-		
-		return d;
-	} catch (std::exception& e) {
-		std::cerr << e.what() << '\n';
-		return .0;
-	}
+	char* end;
+	const char* str = literal.c_str();
+	double d = std::strtod(str, &end);
+	
+	if (end == str)
+		throw std::invalid_argument("no conversion");
+	if (*end != '\0')
+		throw std::invalid_argument("trailing chars");
+	
+	return d;
 }
 
 // move to another file
@@ -193,7 +177,7 @@ void ScalarConverter::printConversions(const float f) {
 	}
 
 	// print INT
-	isImpossible == isNan(d) || isInf(d)
+	isImpossible = isNan(d) || isInf(d)
 		|| d < std::numeric_limits<int>::min()
 		|| d > std::numeric_limits<int>::max();
 	if (isImpossible)
@@ -243,7 +227,7 @@ void ScalarConverter::printConversions(const double d) {
 	}
 
 	// print INT
-	isImpossible == isNan(d) || isInf(d)
+	isImpossible = isNan(d) || isInf(d)
 		|| d < std::numeric_limits<int>::min()
 		|| d > std::numeric_limits<int>::max();
 	if (isImpossible)
@@ -288,15 +272,39 @@ void ScalarConverter::printAllImpossible() {
 	std::cout << "double: impossible" << std::endl;
 }
 
+double ScalarConverter::salvageToDouble(const std::string& literal, ScalarConverter::e_type type) {
+	if (type == TYPE_FLOAT) {
+		char* end;
+		std::string num = literal.substr(0, literal.length() - 1);
+		const char* str = num.c_str();
+		double d = strtod(str, &end);
+		if (end == str || *end != '\0')
+			throw std::invalid_argument("bad float salvage");
+		return d;
+	}
+	return parseDouble(literal);
+}
+
 // ENTRYPOINT
 
 void ScalarConverter::convert(const std::string& literal) {
 	ScalarConverter::e_type type = detectType(literal);
-	switch (type) {
-		case TYPE_CHAR: 	printConversions(parseChar(literal));	break;
-		case TYPE_INT:		printConversions(parseInt(literal));	break;
-		case TYPE_FLOAT:	printConversions(parseFloat(literal));	break;
-		case TYPE_DOUBLE:	printConversions(parseDouble(literal));	break;
-		default:			printAllImpossible();	break;
+	try {
+		switch (type) {
+			case TYPE_CHAR: 	printConversions(parseChar(literal));	break;
+			case TYPE_INT:		printConversions(parseInt(literal));	break;
+			case TYPE_FLOAT:	printConversions(parseFloat(literal));	break;
+			case TYPE_DOUBLE:	printConversions(parseDouble(literal));	break;
+			default:			printAllImpossible();	break;
+		}
+	} catch (const std::invalid_argument&) {
+		printAllImpossible();
+	} catch (const std::out_of_range&) {
+		// retry with double, which is the broadest type
+		try {
+			printConversions(salvageToDouble(literal, type));
+		} catch (const std::invalid_argument&) {
+			printAllImpossible();
+		}
 	}
 }

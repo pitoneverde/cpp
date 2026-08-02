@@ -38,6 +38,7 @@ private:
 	static void printConversions(const double d);
 
 	static void printAllImpossible();
+	static double salvageToDouble(const std::string& literal, e_type type);
 
 public:
 	static void convert(const std::string& literal);

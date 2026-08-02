@@ -32,15 +32,15 @@ private:
 	static float parseFloat(const std::string& literal);
 	static double parseDouble(const std::string& literal);
 
-	static void printConversions(char c);
-	static void printConversions(int i);
-	static void printConversions(float f);
-	static void printConversions(double d);
+	static void printConversions(const char c);
+	static void printConversions(const int i);
+	static void printConversions(const float f);
+	static void printConversions(const double d);
 
 	static void printAllImpossible();
 
 public:
-	static void convert(const std::string& scalar);
+	static void convert(const std::string& literal);
 };
 
 #endif

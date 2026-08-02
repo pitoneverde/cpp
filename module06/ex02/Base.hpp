@@ -1,0 +1,10 @@
+#ifndef BASE_HPP
+#define BASE_HPP
+
+class Base {
+public:
+	// just to activate RTTI
+	virtual ~Base();
+};
+
+#endif

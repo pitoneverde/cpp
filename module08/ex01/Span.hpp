@@ -36,11 +36,15 @@ VECTOR:
 
 #include <vector>
 #include <set>
+#include <exception>
+#include <cmath>
 
 class Span {
 private:
 	Span();
 	unsigned int _size;
+	unsigned int _count;
+	std::multiset<int> _storage;
 
 public:
 	Span(unsigned int);

@@ -37,7 +37,9 @@ VECTOR:
 #include <vector>
 #include <set>
 #include <exception>
-#include <cmath>
+#include <cstdlib>
+#include <limits>
+#include <iterator>
 
 class Span {
 private:
@@ -53,8 +55,15 @@ public:
 	~Span();
 
 	void addNumber(int);
+	// add range of iterators in one call
+	// it doesn't support InputIterators because std::distance consumes them for the pre-insertion check
 	int shortestSpan();
 	int longestSpan();
-
-	// add range of iterators in one call
+	template<typename InputIt>
+	void addRange(InputIt begin, InputIt end) {
+		unsigned int elements = std::distance(begin, end);
+		if (elements > (_size - _count)) throw std::exception();
+		_storage.insert(begin, end);
+		_count += elements;
+	}
 };

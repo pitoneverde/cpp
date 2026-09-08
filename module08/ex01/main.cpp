@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <list>
 #include <cstdlib>
@@ -107,7 +108,7 @@ int main()
         std::cout << "longest:  " << sp.longestSpan()  << " (expect 105)" << std::endl;
     }
 
-	std::cout << std::endl << "--- Test 8: random order ---" << std::endl;
+	std::cout << std::endl << "--- Test 9: random order ---" << std::endl;
 	{
 		Span sp(3);
 		sp.addNumber(5);
@@ -116,5 +117,134 @@ int main()
 		std::cout << "shortest: " << sp.shortestSpan() << " (expect 0)" << std::endl;
 	}
 
+    std::cout << std::endl << "--- Test 10: exactly two elements ---" << std::endl;
+    {
+        Span sp1(2);
+        sp1.addNumber(100);
+        sp1.addNumber(101);
+        std::cout << "A: " << sp1.shortestSpan() << " (expect 1)" << std::endl;
+    }
+
+    std::cout << std::endl << "--- Test 11: all duplicates (zero span) ---" << std::endl;
+    {
+        Span sp2(3);
+        sp2.addNumber(7);
+        sp2.addNumber(7);
+        sp2.addNumber(7);
+        std::cout << "B: " << sp2.shortestSpan() << " (expect 0)" << std::endl;
+    }
+
+    std::cout << std::endl << "--- Test 10: extreme adjacent values ---" << std::endl;
+    {
+        Span sp3(2);
+        sp3.addNumber(-1);
+        sp3.addNumber(2147483647);  // INT_MAX
+        std::cout << "C: " << sp3.shortestSpan() << " (expect overflow)" << std::endl;
+    }
+
+    std::cout << std::endl << "--- Test 10: INT_MIN involved ---" << std::endl;
+    {
+        Span sp4(2);
+        sp4.addNumber(-2147483648); // INT_MIN
+        sp4.addNumber(0);
+        std::cout << "D: " << sp4.shortestSpan() << " (expect overflow)" << std::endl;
+    }
+
+    // tests for addRange
+    std::cout << "--- Test 1: basic range from vector ---" << std::endl;
+    {
+        Span sp(5);
+        std::vector<int> v;
+        v.push_back(10);
+        v.push_back(20);
+        v.push_back(30);
+        v.push_back(40);
+        v.push_back(50);
+
+        sp.addRange(v.begin(), v.end());
+        std::cout << "shortest: " << sp.shortestSpan() << " (expect 10)" << std::endl;
+        std::cout << "longest:  " << sp.longestSpan()  << " (expect 40)" << std::endl;
+    }
+
+    std::cout << "\n--- Test 2: range exceeds capacity ---" << std::endl;
+    {
+        Span sp(3);
+        std::vector<int> v;
+        v.push_back(1);
+        v.push_back(2);
+        v.push_back(3);
+        v.push_back(4);  // 4 elements into capacity 3
+
+        try {
+            sp.addRange(v.begin(), v.end());
+            std::cout << "FAIL: did not throw" << std::endl;
+        } catch (std::exception& e) {
+            // After the throw, the Span should still be empty (atomicity)
+            try {
+                sp.shortestSpan();
+                std::cout << "FAIL: Span was modified before throw" << std::endl;
+            } catch (std::exception&) {
+                std::cout << "OK: threw and Span is still empty" << std::endl;
+            }
+        }
+    }
+
+    std::cout << "\n--- Test 3: range from list (different iterator type) ---" << std::endl;
+    {
+        Span sp(3);
+        std::list<int> lst;
+        lst.push_back(100);
+        lst.push_back(50);
+        lst.push_back(25);
+
+        sp.addRange(lst.begin(), lst.end());
+        std::cout << "longest: " << sp.longestSpan() << " (expect 75)" << std::endl;
+    }
+
+    std::cout << "\n--- Test 4: partial fill then range ---" << std::endl;
+    {
+        Span sp(5);
+        sp.addNumber(1);
+        sp.addNumber(2);
+
+        std::vector<int> v;
+        v.push_back(10);
+        v.push_back(20);
+        v.push_back(30);
+
+        sp.addRange(v.begin(), v.end());
+        std::cout << "count OK? try shortestSpan..." << std::endl;
+        std::cout << "shortest: " << sp.shortestSpan() << " (expect 1)" << std::endl;
+    }
+
+    std::cout << "\n--- Test 5: empty range ---" << std::endl;
+    {
+        Span sp(3);
+        std::vector<int> v;  // empty
+        sp.addRange(v.begin(), v.end());
+        try {
+            sp.shortestSpan();
+            std::cout << "FAIL: should throw with 0 elements" << std::endl;
+        } catch (std::exception&) {
+            std::cout << "OK: empty range insert did nothing" << std::endl;
+        }
+    }
+
+    std::cout << "\n--- Test 6: InputIterator trap (optional) ---" << std::endl;
+    {
+        Span sp(3);
+        std::stringstream ss("1 2 3");
+        std::istream_iterator<int> it(ss);
+        std::istream_iterator<int> end;
+
+        // If you used std::distance() before insert, this may silently
+        // insert nothing instead of throwing or inserting 3 elements.
+        try {
+            sp.addRange(it, end);
+            std::cout << "elements added: check count manually" << std::endl;
+        } catch (std::exception& e) {
+            std::cout << "threw: " << e.what() << std::endl;
+        }
+    }
     return 0;
 }
